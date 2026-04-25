@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JSON 실습장 — 딱 필요한 만큼</title>
+  <meta name="description" content="JSON을 트리로 시각화하고, 포맷·검증·경로 추출까지. AI 응답·API·설정파일을 읽는 눈을 만드는 실습장." />
+
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../" aria-label="딱 필요한 만큼 허브로 이동">
+      <img src="../logo.svg" alt="weniv" class="brand-logo" />
+      <span class="divider" aria-hidden="true"></span>
+      <span class="title">JSON 실습장</span>
+      <span class="home-link">← 다른 실습장</span>
+    </a>
+
+    <div class="actions">
+      <select id="templateSelect" aria-label="예제 불러오기">
+        <option value="">예제 불러오기…</option>
+        <option value="api">API 응답 (블로그 글)</option>
+        <option value="user">사용자 + 주소</option>
+        <option value="config">설정 파일</option>
+        <option value="nested">중첩 배열</option>
+        <option value="mixed">혼합 타입</option>
+      </select>
+
+      <button id="formatBtn" type="button" title="줄바꿈·들여쓰기로 정리">정렬</button>
+      <button id="minifyBtn" type="button" title="공백 제거">압축</button>
+      <button id="copyBtn" type="button" title="클립보드에 복사">복사</button>
+      <button id="clearBtn" type="button" title="비우기">비우기</button>
+
+      <label class="theme-toggle">
+        <input type="checkbox" id="themeToggle" />
+        <span>다크</span>
+      </label>
+    </div>
+  </header>
+
+  <main class="split">
+    <section class="pane editor-pane">
+      <header class="pane-head">
+        <span>JSON 입력</span>
+        <span class="counter"><span id="byteCount">0</span> bytes</span>
+      </header>
+      <textarea
+        id="editor"
+        class="editor"
+        spellcheck="false"
+        autocapitalize="off"
+        autocorrect="off"
+        placeholder='여기에 JSON을 붙여넣으세요. 예: { "name": "홍길동", "age": 28 }'
+      ></textarea>
+      <div id="diagnostic" class="diagnostic">대기 중</div>
+    </section>
+
+    <section class="pane preview-pane">
+      <header class="pane-head">
+        <span>트리 시각화</span>
+        <div class="pane-actions">
+          <button id="expandAll" type="button">모두 펼치기</button>
+          <button id="collapseAll" type="button">모두 접기</button>
+        </div>
+      </header>
+      <div id="tree" class="preview json-tree"></div>
+      <div id="pathBar" class="path-bar" hidden>
+        <span class="path-label">경로</span>
+        <code id="pathValue"></code>
+        <button id="copyPath" type="button">복사</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bottombar">
+    <span>입력은 브라우저에 자동 저장됩니다 (LocalStorage). 노드를 클릭하면 경로가 보입니다.</span>
+    <span>책: <em>딱 필요한 만큼 — 바이브 코딩을 위한 JSON</em> · <span class="muted">집필 예정</span></span>
+  </footer>
+
+  <script src="./script.js"></script>
+</body>
+</html>

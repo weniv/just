@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>색상 실습장 — 딱 필요한 만큼</title>
+  <meta name="description" content="hex ↔ rgb ↔ hsl 변환, 컬러 피커, 명도 대비 체크. AI에게 색을 부탁하기 전에 감을 잡는 실습장." />
+
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../" aria-label="딱 필요한 만큼 허브로 이동">
+      <img src="../logo.svg" alt="weniv" class="brand-logo" />
+      <span class="divider" aria-hidden="true"></span>
+      <span class="title">색상 실습장</span>
+      <span class="home-link">← 다른 실습장</span>
+    </a>
+
+    <div class="actions">
+      <select id="presetSelect" aria-label="프리셋 색상 불러오기">
+        <option value="">프리셋 색…</option>
+        <option value="#2e6ff2">위니브 블루 (primary)</option>
+        <option value="#15bf70">위니브 그린</option>
+        <option value="#ffc533">위니브 옐로</option>
+        <option value="#c93864">코드 핑크</option>
+        <option value="#964dd1">코드 퍼플</option>
+        <option value="#328026">코드 그린</option>
+        <option value="#e37c00">코드 오렌지</option>
+        <option value="#ff3440">에러 레드</option>
+        <option value="#121314">텍스트 (surface)</option>
+        <option value="#47494d">서브 텍스트 (grayLv4)</option>
+        <option value="#8d9299">힌트 (grayLv3)</option>
+        <option value="#d9dbe0">경계선 (grayLv2)</option>
+        <option value="#f3f5fa">옅은 배경 (grayLv1)</option>
+        <option value="#ffffff">흰색</option>
+        <option value="#000000">검정</option>
+      </select>
+
+      <button id="randomBtn" type="button" title="무작위 색">랜덤</button>
+      <button id="copyAllBtn" type="button" title="모든 표기 복사">전부 복사</button>
+
+      <label class="theme-toggle">
+        <input type="checkbox" id="themeToggle" />
+        <span>다크</span>
+      </label>
+    </div>
+  </header>
+
+  <main class="color-main">
+    <section class="color-hero">
+      <div class="picker-card">
+        <label class="picker-label" for="picker">컬러 피커</label>
+        <input type="color" id="picker" value="#2e6ff2" />
+      </div>
+
+      <div class="swatch" id="swatch" style="background:#2e6ff2">
+        <span class="swatch-label" id="swatchLabel">#2e6ff2</span>
+      </div>
+
+      <div class="formats">
+        <div class="fmt-row">
+          <label>HEX</label>
+          <input type="text" id="hexInput" value="#2e6ff2" spellcheck="false" />
+          <button data-copy="hexInput" type="button">복사</button>
+        </div>
+        <div class="fmt-row">
+          <label>RGB</label>
+          <input type="text" id="rgbInput" value="rgb(46, 111, 242)" spellcheck="false" />
+          <button data-copy="rgbInput" type="button">복사</button>
+        </div>
+        <div class="fmt-row">
+          <label>HSL</label>
+          <input type="text" id="hslInput" value="hsl(220, 88%, 56%)" spellcheck="false" />
+          <button data-copy="hslInput" type="button">복사</button>
+        </div>
+        <div class="fmt-row">
+          <label>CSS var</label>
+          <input type="text" id="cssVarInput" readonly value="--brand: #2e6ff2;" />
+          <button data-copy="cssVarInput" type="button">복사</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>명도 / 채도 / 색상 슬라이더</h2>
+      <div class="slider-row">
+        <label>H <span id="hLabel">220°</span></label>
+        <input type="range" id="hSlider" min="0" max="360" value="220" />
+      </div>
+      <div class="slider-row">
+        <label>S <span id="sLabel">88%</span></label>
+        <input type="range" id="sSlider" min="0" max="100" value="88" />
+      </div>
+      <div class="slider-row">
+        <label>L <span id="lLabel">56%</span></label>
+        <input type="range" id="lSlider" min="0" max="100" value="56" />
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>명도 단계 (lightness 10% ~ 90%)</h2>
+      <div class="palette" id="lightnessPalette"></div>
+    </section>
+
+    <section class="card">
+      <h2>WCAG 명도 대비 체크</h2>
+      <p class="card-help">배경색을 위에서 고른 색으로 두고, 글자색을 바꿔 보세요. WCAG는 본문 4.5 이상, 큰 글씨 3.0 이상을 권장합니다.</p>
+      <div class="contrast-row">
+        <label>글자색</label>
+        <input type="color" id="fgPicker" value="#ffffff" />
+        <input type="text" id="fgHex" value="#ffffff" spellcheck="false" />
+      </div>
+      <div class="contrast-preview" id="contrastPreview">
+        <p class="big">큰 글씨 — 24px Bold</p>
+        <p class="normal">본문 — 일반 단락. AI에게 색을 부탁할 때, 가독성도 같이 챙겨 봅시다.</p>
+      </div>
+      <dl class="kv contrast-result" id="contrastResult"></dl>
+    </section>
+
+    <section class="card">
+      <h2>유사 색상 (자동 팔레트)</h2>
+      <p class="card-help">기준 색을 중심으로 유사 / 보색 / 삼각 조합을 만들어 줍니다.</p>
+      <div class="palette" id="schemePalette"></div>
+    </section>
+  </main>
+
+  <footer class="bottombar">
+    <span>입력은 브라우저에 자동 저장됩니다.</span>
+    <span>책: <em>딱 필요한 만큼 — 바이브 코딩을 위한 색</em> · <span class="muted">집필 예정</span></span>
+  </footer>
+
+  <script src="./script.js"></script>
+</body>
+</html>

@@ -1,0 +1,161 @@
+/* ============================================================
+   타임스탬프 실습장 전용 스타일
+============================================================ */
+
+.time-main {
+  flex: 1;
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 24px 24px 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.bottombar .muted { color: var(--text-soft); }
+
+.card {
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px 20px;
+}
+.card h2 {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0 0 10px;
+}
+.card-help {
+  font-size: 13px;
+  color: var(--text-soft);
+  margin: 0 0 14px;
+}
+
+.hero-card { padding: 18px 20px 0; }
+
+.big-time {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-bottom: 12px;
+}
+.big-row {
+  display: grid;
+  grid-template-columns: 130px 1fr;
+  align-items: center;
+  gap: 12px;
+}
+.big-label {
+  font-size: 12px;
+  color: var(--text-soft);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.mono {
+  font: inherit;
+  font-family: ui-monospace, SFMono-Regular, "JetBrains Mono", Menlo, Consolas, monospace;
+  font-size: 14px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  border-radius: 6px;
+  outline: 0;
+  font-variant-numeric: tabular-nums;
+}
+.mono:focus { border-color: var(--accent); }
+.mono.big {
+  font-size: 16px;
+  font-weight: 600;
+}
+.mono.bad {
+  border-color: var(--danger);
+}
+
+.diagnostic {
+  margin: 0 -20px;
+  border-radius: 0 0 11px 11px;
+}
+
+/* ---------- Zones ---------- */
+.zones {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 10px;
+}
+.zone {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.zone-name {
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--text-soft);
+}
+.zone input {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 13px;
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  border-radius: 6px;
+  outline: 0;
+  font-variant-numeric: tabular-nums;
+}
+.zone input:focus { border-color: var(--accent); }
+.zone input.bad { border-color: var(--danger); }
+
+/* ---------- Formats grid ---------- */
+.formats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 8px;
+}
+.format-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+  font: inherit;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 0.12s ease, transform 0.12s ease;
+}
+.format-tile:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+.format-tile .label {
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--text-soft);
+}
+.format-tile .value {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  word-break: break-all;
+}
+
+@media (max-width: 600px) {
+  .big-row {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+  .big-label { margin-top: 4px; }
+}

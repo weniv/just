@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>타임스탬프 실습장 — 딱 필요한 만큼</title>
+  <meta name="description" content="Unix ↔ ISO 8601 ↔ 사람이 읽는 형식. 시간대 변환과 상대 시간 계산까지." />
+
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../" aria-label="딱 필요한 만큼 허브로 이동">
+      <img src="../logo.svg" alt="weniv" class="brand-logo" />
+      <span class="divider" aria-hidden="true"></span>
+      <span class="title">타임스탬프 실습장</span>
+      <span class="home-link">← 다른 실습장</span>
+    </a>
+
+    <div class="actions">
+      <button id="nowBtn" type="button" title="지금 시각으로">지금</button>
+      <button id="copyEpochBtn" type="button" title="Unix 초 복사">epoch 복사</button>
+      <button id="copyIsoBtn" type="button" title="ISO 8601 복사">ISO 복사</button>
+      <label class="theme-toggle">
+        <input type="checkbox" id="themeToggle" />
+        <span>다크</span>
+      </label>
+    </div>
+  </header>
+
+  <main class="time-main">
+    <section class="card hero-card">
+      <div class="big-time">
+        <div class="big-row">
+          <span class="big-label">Unix (초)</span>
+          <input type="text" id="epochSec" class="mono big" spellcheck="false" />
+        </div>
+        <div class="big-row">
+          <span class="big-label">Unix (밀리초)</span>
+          <input type="text" id="epochMs" class="mono big" spellcheck="false" />
+        </div>
+        <div class="big-row">
+          <span class="big-label">ISO 8601</span>
+          <input type="text" id="iso" class="mono big" spellcheck="false" />
+        </div>
+        <div class="big-row">
+          <span class="big-label">사람</span>
+          <input type="text" id="human" class="mono" spellcheck="false" placeholder="예: 2026-04-25 09:30:00" />
+        </div>
+      </div>
+      <div id="diagnostic" class="diagnostic">대기 중</div>
+    </section>
+
+    <section class="card">
+      <h2>시간대 별 보기</h2>
+      <p class="card-help">같은 순간을 여러 시간대로. 한 칸을 고치면 다른 칸도 따라 갑니다.</p>
+      <div class="zones" id="zones"></div>
+    </section>
+
+    <section class="card">
+      <h2>지금과의 차이</h2>
+      <dl class="kv" id="relative"></dl>
+    </section>
+
+    <section class="card">
+      <h2>요일 / 분해</h2>
+      <dl class="kv" id="parts"></dl>
+    </section>
+
+    <section class="card">
+      <h2>자주 쓰는 형식</h2>
+      <p class="card-help">현재 순간을 다양한 표기로. 클릭해서 복사할 수 있습니다.</p>
+      <div class="formats-grid" id="formatsGrid"></div>
+    </section>
+  </main>
+
+  <footer class="bottombar">
+    <span>입력은 브라우저에 자동 저장됩니다. 시간 형식이 헷갈릴 때 즉시 변환해 보세요.</span>
+    <span>책: <em>딱 필요한 만큼 — 바이브 코딩을 위한 시간</em> · <span class="muted">집필 예정</span></span>
+  </footer>
+
+  <script src="./script.js"></script>
+</body>
+</html>

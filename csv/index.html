@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CSV 실습장 — 딱 필요한 만큼</title>
+  <meta name="description" content="CSV를 표로 띄우고 정렬·차트로 한눈에. 엑셀 없이도 데이터 감을 잡는 실습장." />
+
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../" aria-label="딱 필요한 만큼 허브로 이동">
+      <img src="../logo.svg" alt="weniv" class="brand-logo" />
+      <span class="divider" aria-hidden="true"></span>
+      <span class="title">CSV 실습장</span>
+      <span class="home-link">← 다른 실습장</span>
+    </a>
+
+    <div class="actions">
+      <select id="templateSelect" aria-label="예제 불러오기">
+        <option value="">예제 불러오기…</option>
+        <option value="attendance">출석부</option>
+        <option value="sales">월별 매출</option>
+        <option value="cities">한국 주요 도시</option>
+        <option value="books">베스트셀러</option>
+      </select>
+
+      <select id="delimiter" aria-label="구분자">
+        <option value="auto">구분자: 자동</option>
+        <option value=",">,  쉼표</option>
+        <option value="\t">⇥  탭</option>
+        <option value=";">;  세미콜론</option>
+        <option value="|">|  파이프</option>
+      </select>
+
+      <label class="header-toggle">
+        <input type="checkbox" id="hasHeader" checked />
+        <span>첫 줄은 헤더</span>
+      </label>
+
+      <button id="downloadBtn" type="button">.csv 저장</button>
+      <button id="copyBtn" type="button">복사</button>
+      <button id="clearBtn" type="button">비우기</button>
+
+      <label class="theme-toggle">
+        <input type="checkbox" id="themeToggle" />
+        <span>다크</span>
+      </label>
+    </div>
+  </header>
+
+  <main class="csv-main">
+    <section class="pane editor-pane">
+      <header class="pane-head">
+        <span>CSV 입력</span>
+        <span class="counter"><span id="rowCount">0</span>행 · <span id="colCount">0</span>열</span>
+      </header>
+      <textarea
+        id="editor"
+        class="editor"
+        spellcheck="false"
+        autocapitalize="off"
+        autocorrect="off"
+        placeholder='CSV를 붙여넣으세요. 예:&#10;이름,점수,출석&#10;홍길동,95,true&#10;김철수,82,true'
+      ></textarea>
+      <div id="diagnostic" class="diagnostic">대기 중</div>
+    </section>
+
+    <section class="pane preview-pane">
+      <header class="pane-head">
+        <span id="viewLabel">표</span>
+        <div class="pane-actions">
+          <button data-view="table" class="view-btn active">표</button>
+          <button data-view="chart" class="view-btn">차트</button>
+        </div>
+      </header>
+
+      <div id="tableView" class="view active">
+        <div class="table-scroll">
+          <table id="dataTable" class="data-table"></table>
+        </div>
+      </div>
+
+      <div id="chartView" class="view">
+        <div class="chart-controls">
+          <label>
+            X축
+            <select id="xAxis"></select>
+          </label>
+          <label>
+            Y축 (숫자)
+            <select id="yAxis"></select>
+          </label>
+          <label>
+            집계
+            <select id="aggregate">
+              <option value="sum">합계</option>
+              <option value="avg">평균</option>
+              <option value="count">개수</option>
+              <option value="max">최대</option>
+              <option value="min">최소</option>
+            </select>
+          </label>
+        </div>
+        <div id="chart" class="chart"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bottombar">
+    <span>입력은 브라우저에 자동 저장됩니다. 헤더를 클릭하면 정렬됩니다.</span>
+    <span>책: <em>딱 필요한 만큼 — 바이브 코딩을 위한 CSV</em> · <span class="muted">집필 예정</span></span>
+  </footer>
+
+  <script src="./script.js"></script>
+</body>
+</html>

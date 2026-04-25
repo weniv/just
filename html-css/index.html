@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HTML / CSS 실습장 — 딱 필요한 만큼</title>
+  <meta name="description" content="HTML과 CSS를 좌측에 쓰면 우측에서 바로 결과를 봅니다. 플렉스·그리드·애니메이션까지." />
+
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="../" aria-label="딱 필요한 만큼 허브로 이동">
+      <img src="../logo.svg" alt="weniv" class="brand-logo" />
+      <span class="divider" aria-hidden="true"></span>
+      <span class="title">HTML / CSS 실습장</span>
+      <span class="home-link">← 다른 실습장</span>
+    </a>
+
+    <div class="actions">
+      <select id="templateSelect" aria-label="예제 불러오기">
+        <option value="">예제 불러오기…</option>
+        <option value="basic">기본 페이지</option>
+        <option value="flex">플렉스 카드 정렬</option>
+        <option value="grid">그리드 레이아웃</option>
+        <option value="form">폼 + 검증</option>
+        <option value="hover">호버 / 트랜지션</option>
+        <option value="responsive">반응형 (미디어 쿼리)</option>
+      </select>
+
+      <button id="runBtn" type="button" title="자동 갱신이 꺼져 있을 때 실행">실행</button>
+      <label class="auto-run">
+        <input type="checkbox" id="autoRun" checked />
+        <span>자동 갱신</span>
+      </label>
+      <button id="resetBtn" type="button" title="모두 비우기">비우기</button>
+
+      <label class="theme-toggle">
+        <input type="checkbox" id="themeToggle" />
+        <span>다크</span>
+      </label>
+    </div>
+  </header>
+
+  <main class="split">
+    <section class="pane editor-pane">
+      <div class="tabs" role="tablist">
+        <button class="tab active" data-tab="html" role="tab">HTML</button>
+        <button class="tab" data-tab="css" role="tab">CSS</button>
+        <button class="tab" data-tab="js" role="tab">JS <span class="opt">옵션</span></button>
+      </div>
+      <textarea
+        id="editor"
+        class="editor"
+        spellcheck="false"
+        autocapitalize="off"
+        autocorrect="off"
+        placeholder="HTML 마크업을 여기에 적으세요. 위 탭으로 CSS / JS 로 전환할 수 있습니다."
+      ></textarea>
+    </section>
+
+    <section class="pane preview-pane">
+      <header class="pane-head">
+        <span>결과 미리보기</span>
+        <div class="pane-actions">
+          <button id="reloadBtn" type="button">새로고침</button>
+        </div>
+      </header>
+      <iframe
+        id="preview"
+        title="미리보기"
+        sandbox="allow-scripts allow-forms"
+      ></iframe>
+    </section>
+  </main>
+
+  <footer class="bottombar">
+    <span>입력은 브라우저에 자동 저장됩니다. 미리보기는 sandbox iframe 안에서만 실행됩니다.</span>
+    <span>책: <em>딱 필요한 만큼 — 바이브 코딩을 위한 HTML/CSS</em> · <span class="muted">집필 예정</span></span>
+  </footer>
+
+  <script src="./script.js"></script>
+</body>
+</html>
