@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>딱 필요한 만큼 — 마크다운 실습장</title>
+  <meta name="description" content="바이브 코딩을 위한 마크다운 실습 페이지. 왼쪽에 입력하면 오른쪽에 바로 결과가 보입니다." />
+
+  <link rel="stylesheet" href="style.css" />
+
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github.min.css"
+    id="hljs-light"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/styles/github-dark.min.css"
+    id="hljs-dark"
+    disabled
+  />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="series">딱 필요한 만큼</span>
+      <span class="title">마크다운 실습장</span>
+    </div>
+
+    <div class="actions">
+      <select id="templateSelect" aria-label="예제 불러오기">
+        <option value="">예제 불러오기…</option>
+        <option value="intro">자기소개 README</option>
+        <option value="prompt">AI 프롬프트 템플릿</option>
+        <option value="readme">프로젝트 README</option>
+        <option value="table">표 / 정렬</option>
+        <option value="checklist">체크리스트</option>
+        <option value="codeblock">코드 블록 / diff</option>
+        <option value="mermaid">머메이드 다이어그램</option>
+        <option value="alerts">GitHub 알림박스</option>
+        <option value="frontmatter">프론트매터(YAML)</option>
+      </select>
+
+      <button id="copyMd" type="button" title="마크다운 복사">MD 복사</button>
+      <button id="copyHtml" type="button" title="HTML 복사">HTML 복사</button>
+      <button id="downloadMd" type="button" title="파일로 저장">.md 저장</button>
+      <button id="clearBtn" type="button" title="비우기">비우기</button>
+
+      <label class="theme-toggle">
+        <input type="checkbox" id="themeToggle" />
+        <span>다크</span>
+      </label>
+    </div>
+  </header>
+
+  <section class="toolbar" aria-label="자주 쓰는 문법">
+    <button data-md="# " title="헤딩 1">H1</button>
+    <button data-md="## " title="헤딩 2">H2</button>
+    <button data-md="### " title="헤딩 3">H3</button>
+    <button data-wrap="**" title="굵게"><b>B</b></button>
+    <button data-wrap="*" title="기울임"><i>I</i></button>
+    <button data-wrap="~~" title="취소선"><s>S</s></button>
+    <button data-wrap="`" title="인라인 코드">&lt;/&gt;</button>
+    <button data-md="- " title="목록">•&nbsp;목록</button>
+    <button data-md="1. " title="번호 목록">1.&nbsp;목록</button>
+    <button data-md="- [ ] " title="체크리스트">☐&nbsp;할일</button>
+    <button data-block="link" title="링크">링크</button>
+    <button data-block="image" title="이미지">이미지</button>
+    <button data-block="table" title="표">표</button>
+    <button data-block="code" title="코드 블록">코드</button>
+    <button data-block="quote" title="인용">인용</button>
+    <button data-block="mermaid" title="머메이드">머메이드</button>
+  </section>
+
+  <main class="split">
+    <section class="pane editor-pane">
+      <header class="pane-head">
+        <span>마크다운 입력</span>
+        <span class="counter"><span id="charCount">0</span>자 · <span id="lineCount">1</span>줄</span>
+      </header>
+      <textarea
+        id="editor"
+        spellcheck="false"
+        autocapitalize="off"
+        autocorrect="off"
+        placeholder="여기에 마크다운을 입력하세요. 위 도구 모음이나 예제 불러오기로 시작해도 좋습니다."
+      ></textarea>
+    </section>
+
+    <section class="pane preview-pane">
+      <header class="pane-head">
+        <span>결과 미리보기</span>
+      </header>
+      <article id="preview" class="markdown-body"></article>
+    </section>
+  </main>
+
+  <footer class="bottombar">
+    <span>입력은 브라우저에 자동 저장됩니다 (LocalStorage).</span>
+    <span>책: <em>딱 필요한 만큼 — 바이브 코딩을 위한 마크다운</em></span>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/marked@12.0.2/marked.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dompurify@3.1.5/dist/purify.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/highlight.js@11.9.0/lib/common.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
