@@ -64,16 +64,18 @@
     return `
       <article class="book-card${disabled ? " disabled" : ""}"
                style="--card-accent: ${escapeHtml(accent)}; --card-accent-soft: ${softenAccent(accent)};">
-        <div class="card-head">
-          <span class="card-icon">${escapeHtml(book.icon || book.slug.slice(0, 2).toUpperCase())}</span>
+        <div class="card-thumb">
+          <span class="card-thumb-icon">${escapeHtml(book.icon || book.slug.slice(0, 2).toUpperCase())}</span>
           <span class="card-status ${status.className}">${escapeHtml(status.text)}</span>
         </div>
-        <h2 class="card-title">${escapeHtml(book.title)}</h2>
-        <p class="card-tagline">${escapeHtml(book.tagline || "")}</p>
-        <p class="card-desc">${escapeHtml(book.description || "")}</p>
-        <div class="card-actions">
-          ${practiceBtn}
-          ${bookBtn}
+        <div class="card-body">
+          <h2 class="card-title">${escapeHtml(book.title)}</h2>
+          <p class="card-tagline">${escapeHtml(book.tagline || "")}</p>
+          <p class="card-desc">${escapeHtml(book.description || "")}</p>
+          <div class="card-actions">
+            ${practiceBtn}
+            ${bookBtn}
+          </div>
         </div>
       </article>
     `;

@@ -10,11 +10,15 @@
 </head>
 <body class="hub-page">
   <header class="topbar">
-    <a class="brand" href="./" aria-label="딱 필요한 만큼 — 바이브 코딩 실습장 홈">
-      <img src="./logo.svg" alt="weniv" class="brand-logo" />
+    <div class="brand">
+      <a class="brand-logo-link" href="https://www.weniv.co.kr/" target="_blank" rel="noopener" aria-label="위니브 홈으로 이동">
+        <img src="./logo.svg" alt="weniv" class="brand-logo" />
+      </a>
       <span class="divider" aria-hidden="true"></span>
-      <span class="title">바이브 코딩 실습장</span>
-    </a>
+      <a class="brand-title-link" href="./" aria-label="딱 필요한 만큼 — 바이브 코딩 실습장 홈">
+        <span class="title">바이브 코딩 실습장</span>
+      </a>
+    </div>
 
     <div class="actions">
       <label class="theme-toggle">
@@ -34,14 +38,34 @@
     </section>
 
     <section class="book-grid" id="bookGrid" aria-label="책 목록"></section>
-
-    <section class="hub-footer">
-      <p>
-        시리즈 도서 <a href="https://www.books.weniv.co.kr/" target="_blank" rel="noopener">위니북스</a>
-        · 제작 <a href="https://weniv.co.kr/" target="_blank" rel="noopener">위니브</a>
-      </p>
-    </section>
   </main>
+
+  <footer class="site-footer">
+    <div class="site-footer-inner">
+      <div class="site-footer-brand">
+        <a href="https://www.weniv.co.kr/" target="_blank" rel="noopener" aria-label="위니브 홈으로 이동">
+          <img src="./logo.svg" alt="weniv" class="site-footer-logo" />
+        </a>
+        <p class="site-footer-tagline">
+          한 가지 도구를 30분 안에 익히는 단편 실습장 모음입니다.
+        </p>
+      </div>
+
+      <nav class="site-footer-links" aria-label="관련 사이트">
+        <h2>관련 사이트</h2>
+        <ul>
+          <li><a href="https://weniv.co.kr/" target="_blank" rel="noopener">위니브</a></li>
+          <li><a href="https://www.books.weniv.co.kr/" target="_blank" rel="noopener">위니북스</a></li>
+          <li><a href="https://github.com/weniv" target="_blank" rel="noopener">GitHub</a></li>
+        </ul>
+      </nav>
+
+      <div class="site-footer-copy">
+        <p>© WENIV. All rights reserved.</p>
+        <p class="site-footer-meta">딱 필요한 만큼 — 바이브 코딩 실습장</p>
+      </div>
+    </div>
+  </footer>
 
   <script src="./books.js"></script>
   <script src="./script.js"></script>

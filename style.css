@@ -95,8 +95,6 @@
 html, body {
   margin: 0;
   padding: 0;
-  height: 100%;
-  background: var(--bg);
   color: var(--text);
   font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
     "Apple SD Gothic Neo", "Noto Sans KR", "Segoe UI", Roboto, sans-serif;
@@ -110,7 +108,7 @@ html, body {
 body {
   display: flex;
   flex-direction: column;
-  min-height: 100%;
+  min-height: 100vh;
 }
 
 a { color: var(--accent); }
@@ -147,9 +145,23 @@ a { color: var(--accent); }
   display: flex;
   align-items: center;
   gap: 14px;
-  text-decoration: none;
   color: inherit;
 }
+.brand a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+  border-radius: 6px;
+  transition: opacity 0.15s ease;
+}
+.brand a:hover { opacity: 0.75; }
+.brand a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.brand-logo-link { padding: 2px; }
 .brand-logo {
   display: block;
   height: 26px;
