@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cron 실습장 — 딱 필요한 만큼</title>
+  <meta name="description" content="크론 표현식을 사람 말로 풀고 다음 실행 시각을 시간대별로 계산." />
+
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <a class="brand-logo-link" href="https://www.weniv.co.kr/" target="_blank" rel="noopener" aria-label="위니브 홈으로 이동">
+        <img src="../logo.svg" alt="weniv" class="brand-logo" />
+      </a>
+      <span class="divider" aria-hidden="true"></span>
+      <a class="brand-title-link" href="../" aria-label="딱 필요한 만큼 허브로 이동">
+        <span class="title">Cron 실습장</span>
+        <span class="home-link">← 다른 실습장</span>
+      </a>
+    </div>
+
+    <div class="actions">
+      <label class="zone-select">
+        <span>시간대</span>
+        <select id="zoneSelect">
+          <option value="Asia/Seoul">서울 · KST</option>
+          <option value="UTC">UTC</option>
+          <option value="America/New_York">뉴욕 · ET</option>
+          <option value="America/Los_Angeles">샌프란시스코 · PT</option>
+          <option value="Europe/London">런던 · GMT/BST</option>
+          <option value="Asia/Tokyo">도쿄 · JST</option>
+        </select>
+      </label>
+      <button id="copyBtn" type="button" title="현재 표현식 복사">복사</button>
+      <label class="theme-toggle">
+        <input type="checkbox" id="themeToggle" />
+        <span>다크</span>
+      </label>
+    </div>
+  </header>
+
+  <main class="cron-main">
+    <section class="card hero-card">
+      <div class="cron-input-row">
+        <input
+          type="text"
+          id="cronInput"
+          class="mono cron-input"
+          spellcheck="false"
+          autocomplete="off"
+          value="0 9 * * 1-5"
+          placeholder="예: 0 9 * * 1-5"
+        />
+      </div>
+      <div class="field-labels" aria-hidden="true">
+        <span>분</span>
+        <span>시</span>
+        <span>일</span>
+        <span>월</span>
+        <span>요일</span>
+      </div>
+      <div id="diagnostic" class="diagnostic">대기 중</div>
+    </section>
+
+    <section class="card">
+      <h2>사람 말로</h2>
+      <p id="humanText" class="human-text">—</p>
+    </section>
+
+    <section class="card">
+      <h2>필드 분해</h2>
+      <p class="card-help">각 필드가 어떤 값을 매칭하는지 확인합니다. 너무 많으면 앞부분만 보여집니다.</p>
+      <div id="fieldsGrid" class="fields-grid"></div>
+    </section>
+
+    <section class="card">
+      <h2>다음 실행 시각</h2>
+      <p class="card-help">현재 시각 이후 가까운 실행 시점 5개를 선택한 시간대로 계산합니다.</p>
+      <ol id="nextRuns" class="next-runs"></ol>
+    </section>
+
+    <section class="card">
+      <h2>자주 쓰는 프리셋</h2>
+      <p class="card-help">클릭하면 위 입력으로 들어갑니다.</p>
+      <div id="presets" class="presets"></div>
+    </section>
+  </main>
+
+  <footer class="bottombar">
+    <span>입력은 브라우저에 자동 저장됩니다. AI가 만든 크론을 신뢰하기 전에 한 번 돌려 보세요.</span>
+    <span>책: <em>딱 필요한 만큼 — 바이브 코딩을 위한 Cron</em> · <span class="muted">집필 예정</span></span>
+  </footer>
+
+  <script src="./script.js"></script>
+</body>
+</html>

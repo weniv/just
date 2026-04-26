@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>정규식 실습장 — 딱 필요한 만큼</title>
+  <meta name="description" content="정규식과 테스트 문자열을 한 화면에. 매치 하이라이트와 캡처 그룹 시각화." />
+
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <a class="brand-logo-link" href="https://www.weniv.co.kr/" target="_blank" rel="noopener" aria-label="위니브 홈으로 이동">
+        <img src="../logo.svg" alt="weniv" class="brand-logo" />
+      </a>
+      <span class="divider" aria-hidden="true"></span>
+      <a class="brand-title-link" href="../" aria-label="딱 필요한 만큼 허브로 이동">
+        <span class="title">정규식 실습장</span>
+        <span class="home-link">← 다른 실습장</span>
+      </a>
+    </div>
+
+    <div class="actions">
+      <button id="copyBtn" type="button" title="현재 정규식 복사">/ … / 복사</button>
+      <label class="theme-toggle">
+        <input type="checkbox" id="themeToggle" />
+        <span>다크</span>
+      </label>
+    </div>
+  </header>
+
+  <main class="regex-main">
+    <section class="card hero-card">
+      <div class="re-input-row">
+        <span class="re-slash">/</span>
+        <input
+          type="text"
+          id="patternInput"
+          class="mono re-pattern"
+          spellcheck="false"
+          autocomplete="off"
+          value="\b\w+@\w+\.\w+\b"
+          placeholder="정규식 패턴"
+        />
+        <span class="re-slash">/</span>
+        <input
+          type="text"
+          id="flagsInput"
+          class="mono re-flags"
+          spellcheck="false"
+          autocomplete="off"
+          value="g"
+          placeholder="플래그"
+          maxlength="6"
+        />
+      </div>
+
+      <div class="flags-toggles" role="group" aria-label="플래그 토글">
+        <label><input type="checkbox" data-flag="g" /><span>g <em>전역</em></span></label>
+        <label><input type="checkbox" data-flag="i" /><span>i <em>대소문자 무시</em></span></label>
+        <label><input type="checkbox" data-flag="m" /><span>m <em>여러 줄</em></span></label>
+        <label><input type="checkbox" data-flag="s" /><span>s <em>. 줄바꿈 포함</em></span></label>
+        <label><input type="checkbox" data-flag="u" /><span>u <em>유니코드</em></span></label>
+      </div>
+
+      <div id="diagnostic" class="diagnostic">대기 중</div>
+    </section>
+
+    <section class="card">
+      <h2>테스트 문자열</h2>
+      <p class="card-help">아래에 입력한 텍스트에서 매칭되는 부분을 즉시 강조합니다.</p>
+      <div class="test-area">
+        <textarea
+          id="testInput"
+          class="mono test-input"
+          spellcheck="false"
+          rows="8"
+          placeholder="여기에 매칭을 시도할 문자열을 붙여 넣으세요"
+        >연락처: hojun@weniv.co.kr 또는 sales@weniv.co.kr 으로 보내주세요.
+어제는 PAUL@example.COM 와 test@gmail.com 도 봤습니다.</textarea>
+        <pre id="testPreview" class="test-preview" aria-hidden="true"></pre>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>매치 결과</h2>
+      <p class="card-help">전체 매치, 캡처 그룹, 인덱스를 표로 봅니다.</p>
+      <div id="matchSummary" class="match-summary"></div>
+      <div id="matchList" class="match-list"></div>
+    </section>
+
+    <section class="card">
+      <h2>자주 쓰는 패턴</h2>
+      <p class="card-help">클릭하면 위 입력으로 들어갑니다. 테스트 문자열은 그대로 두고 비교해 보세요.</p>
+      <div id="presets" class="presets"></div>
+    </section>
+  </main>
+
+  <footer class="bottombar">
+    <span>정규식과 테스트 문자열은 브라우저에 자동 저장됩니다. AI가 만든 패턴이 정말 매칭하는지 직접 확인하세요.</span>
+    <span>책: <em>딱 필요한 만큼 — 바이브 코딩을 위한 정규식</em> · <span class="muted">집필 예정</span></span>
+  </footer>
+
+  <script src="./script.js"></script>
+</body>
+</html>

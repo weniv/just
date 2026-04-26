@@ -1,0 +1,300 @@
+/* ============================================================
+   정규식 실습장 전용 스타일
+============================================================ */
+
+.regex-main {
+  flex: 1;
+  width: 100%;
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: 24px 24px 64px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.bottombar .muted { color: var(--text-soft); }
+
+.card {
+  background: var(--bg-elev);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px 20px;
+}
+.card h2 {
+  font-size: 15px;
+  font-weight: 700;
+  margin: 0 0 10px;
+}
+.card-help {
+  font-size: 13px;
+  color: var(--text-soft);
+  margin: 0 0 14px;
+}
+
+.hero-card { padding: 18px 20px 0; }
+
+/* ---------- Regex input row ---------- */
+.re-input-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  border-radius: 8px;
+  padding: 4px 8px;
+  transition: border-color 0.15s;
+}
+.re-input-row:focus-within { border-color: var(--accent); }
+.re-input-row.bad { border-color: var(--danger); }
+
+.re-slash {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--code-purple);
+  user-select: none;
+}
+
+.mono {
+  font: inherit;
+  font-family: ui-monospace, SFMono-Regular, "JetBrains Mono", Menlo, Consolas, monospace;
+  font-size: 14px;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  outline: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.re-pattern {
+  flex: 1;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 8px 4px;
+  letter-spacing: 0.02em;
+  min-width: 0;
+}
+.re-flags {
+  width: 80px;
+  font-size: 15px;
+  padding: 8px 4px;
+  text-align: left;
+  color: var(--code-orange);
+  font-weight: 600;
+}
+
+/* ---------- Flag toggles ---------- */
+.flags-toggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+.flags-toggles label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 12.5px;
+  cursor: pointer;
+  background: var(--bg);
+  color: var(--text-soft);
+  user-select: none;
+  transition: border-color 0.12s, color 0.12s, background 0.12s;
+}
+.flags-toggles label:hover { border-color: var(--accent); color: var(--accent); }
+.flags-toggles label input { accent-color: var(--accent); }
+.flags-toggles label span { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-weight: 700; }
+.flags-toggles label em { font-style: normal; font-family: "Pretendard Variable", Pretendard, sans-serif; font-weight: 500; color: var(--text-mute); margin-left: 2px; }
+.flags-toggles label:has(input:checked) {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent-strong);
+}
+
+.diagnostic {
+  margin: 12px -20px 0;
+  border-radius: 0 0 11px 11px;
+}
+
+/* ---------- Test area (textarea + overlay preview) ---------- */
+.test-area {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--bg);
+  overflow: hidden;
+}
+.test-input,
+.test-preview {
+  width: 100%;
+  padding: 12px 14px;
+  font-family: ui-monospace, SFMono-Regular, "JetBrains Mono", Menlo, Consolas, monospace;
+  font-size: 14px;
+  line-height: 1.7;
+  letter-spacing: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin: 0;
+  border: 0;
+}
+.test-input {
+  position: relative;
+  resize: vertical;
+  background: transparent;
+  color: var(--text);
+  outline: 0;
+  z-index: 2;
+  display: block;
+  min-height: 180px;
+  scrollbar-gutter: stable;
+}
+.test-preview {
+  position: absolute;
+  inset: 0;
+  color: transparent;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+.test-preview mark {
+  background: rgba(150, 77, 209, 0.22);
+  color: transparent;
+  border-radius: 3px;
+  padding: 0;
+  box-shadow: 0 0 0 1px rgba(150, 77, 209, 0.45);
+}
+.test-preview mark.alt {
+  background: rgba(46, 111, 242, 0.22);
+  box-shadow: 0 0 0 1px rgba(46, 111, 242, 0.45);
+}
+
+/* ---------- Match summary + list ---------- */
+.match-summary {
+  font-size: 13px;
+  color: var(--text-soft);
+  margin-bottom: 12px;
+  font-variant-numeric: tabular-nums;
+}
+.match-summary strong {
+  color: var(--code-purple);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.match-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.match-tile {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 10px 12px;
+  background: var(--bg);
+  display: grid;
+  grid-template-columns: 32px 1fr;
+  gap: 10px;
+  align-items: start;
+}
+.match-tile .midx {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-mute);
+  text-align: right;
+  padding-top: 1px;
+}
+.match-tile .mbody {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+.match-tile .mhead {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.match-tile .mtext {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--code-purple);
+  word-break: break-all;
+}
+.match-tile .mpos {
+  font-size: 11.5px;
+  color: var(--text-mute);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-variant-numeric: tabular-nums;
+}
+.match-tile .groups {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 4px 12px;
+  font-size: 12.5px;
+}
+.match-tile .groups dt {
+  color: var(--text-mute);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+.match-tile .groups dd {
+  margin: 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  color: var(--text-soft);
+  word-break: break-all;
+}
+
+.empty {
+  padding: 12px;
+  font-size: 13px;
+  color: var(--text-mute);
+  text-align: center;
+  border: 1px dashed var(--border);
+  border-radius: 8px;
+}
+
+/* ---------- Presets ---------- */
+.presets {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 8px;
+}
+.preset-tile {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  text-align: left;
+  font: inherit;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 0.12s ease, transform 0.12s ease;
+}
+.preset-tile:hover {
+  border-color: var(--accent);
+  transform: translateY(-1px);
+}
+.preset-tile .preset-pat {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12.5px;
+  color: var(--code-purple);
+  font-weight: 600;
+  word-break: break-all;
+}
+.preset-tile .preset-desc {
+  font-size: 12.5px;
+  color: var(--text-soft);
+}
+
+@media (max-width: 600px) {
+  .re-pattern { font-size: 14px; }
+  .re-flags { width: 70px; font-size: 13.5px; }
+}
