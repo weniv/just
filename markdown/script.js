@@ -293,9 +293,7 @@ hello("바이브 코더");
 
   renderer.listitem = function (text, task, checked) {
     if (task) {
-      return `<li class="task-list-item"><input type="checkbox" disabled${
-        checked ? " checked" : ""
-      }> ${text}</li>`;
+      return `<li class="task-list-item">${text}</li>`;
     }
     return `<li>${text}</li>`;
   };
