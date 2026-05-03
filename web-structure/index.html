@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>웹 구조 도식 — 딱 필요한 만큼</title>
+  <meta name="description" content="바이브 코딩을 위한 웹 서비스 구조의 머메이드 도식 모음. 프론트/백/DB/외부 API/인프라가 어떻게 묶이는지 한눈에 보여줍니다." />
+
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <a class="brand-logo-link" href="https://www.weniv.co.kr/" target="_blank" rel="noopener" aria-label="위니브 홈으로 이동">
+        <img src="../logo.svg" alt="weniv" class="brand-logo" />
+      </a>
+      <span class="divider" aria-hidden="true"></span>
+      <a class="brand-title-link" href="../" aria-label="딱 필요한 만큼 허브로 이동">
+        <span class="title">웹 구조 도식</span>
+        <span class="home-link">← 다른 실습장</span>
+      </a>
+    </div>
+
+    <div class="actions">
+      <label class="theme-toggle">
+        <input type="checkbox" id="themeToggle" />
+        <span>다크</span>
+      </label>
+    </div>
+  </header>
+
+  <main class="viewer">
+    <aside class="toc" aria-label="도식 목차">
+      <nav>
+        <p class="toc-head">목차</p>
+        <ol class="toc-list">
+          <li><a href="#d1">1.1 AI에게 던지면 따라오는 질문</a></li>
+
+          <li class="toc-section">2. 한 장의 지도</li>
+          <li><a href="#d2">2.1 모든 구성요소를 한 장에</a></li>
+          <li><a href="#d3">2.2 프론트엔드만 개발</a></li>
+          <li><a href="#d4">2.3 모놀리식 (DB 분리)</a></li>
+          <li><a href="#d5">2.4 모놀리식 (한 몸)</a></li>
+          <li><a href="#d6">2.5 마이크로서비스</a></li>
+          <li><a href="#d7">2.6 프론트 + 외부 API</a></li>
+          <li><a href="#d8">2.7 BaaS 빌리기</a></li>
+
+          <li class="toc-section">3. 구성요소 들여다보기</li>
+          <li><a href="#d9">3.1 요청과 응답</a></li>
+          <li><a href="#d10">3.2 HTML/CSS/JS의 역할</a></li>
+          <li><a href="#d11">3.3 도메인과 DNS</a></li>
+          <li><a href="#d12">3.4 FastAPI 서버 흐름</a></li>
+          <li><a href="#d13">3.5 DB가 필요한 이유</a></li>
+        </ol>
+      </nav>
+    </aside>
+
+    <article class="diagrams">
+      <header class="viewer-hero">
+        <p class="hero-eyebrow">딱 필요한 만큼 — 바이브 코딩을 위한 웹 서비스 구조</p>
+        <h1>웹 구조 도식 모음</h1>
+        <p class="hero-lead">
+          AI에게 “이 구조로 만들어줘”라고 말할 수 있게 되는 것이 목표인 책입니다.
+          본문 곳곳에 흩어져 있는 13장의 머메이드 도식만 모아 한 페이지에서 훑어볼 수 있게 정리했습니다.
+        </p>
+      </header>
+
+      <section class="chapter">
+        <h2 class="chapter-title">1. 왜 웹 구조부터인가</h2>
+
+        <article class="diagram-card" id="d1">
+          <header class="diagram-head">
+            <span class="diagram-index">1.1</span>
+            <h3>AI에게 던지면 따라오는 질문</h3>
+          </header>
+          <p class="diagram-blurb">
+            AI에게 “할 일 관리 앱 만들어줘”라고 던지면 곧장 “무엇이 필요한가요?”라는 질문이 돌아옵니다.
+            이 책은 그 질문에 스스로 답할 수 있는 구조 감각을 키우는 것이 목표입니다.
+          </p>
+          <div class="mermaid">
+flowchart LR
+    A["내가 원하는 서비스"] --> B["AI"]
+    B --> C{"내가 만들 서비스<br/>무엇이 필요한가?"}
+    C --> D["프론트엔드"]
+    C --> E["백엔드"]
+    C --> F["데이터베이스"]
+    C --> G["인프라"]
+    C --> H["AI 모델 API / 지도 API 등<br/>(외부 백엔드)"]
+          </div>
+        </article>
+      </section>
+
+      <section class="chapter">
+        <h2 class="chapter-title">2. 한 장의 지도 — 5가지 구조</h2>
+
+        <article class="diagram-card" id="d2">
+          <header class="diagram-head">
+            <span class="diagram-index">2.1</span>
+            <h3>모든 구성요소를 한 장에</h3>
+          </header>
+          <p class="diagram-blurb">
+            대부분의 웹 서비스를 간소화한 한 장의 그림. 책 전반에서 계속 등장하며,
+            만들고 싶은 서비스가 어디까지 필요한지 선을 그어볼 수 있는 ‘지도’가 됩니다.
+          </p>
+          <div class="mermaid">
+flowchart LR
+    USER["사용자<br/>(브라우저/앱)"] <--> FE["Web Server<br/>(프론트엔드 소스코드)"]
+    FE <--> BE["App Server<br/>(백엔드 소스코드)"]
+    BE <--> DB[("DB Server<br/>(데이터)")]
+    BE <--> API["AI 모델 API / 지도 API 등<br/>(외부 App Server)"]
+    INFRA["인프라"] -. "위에서 모두 동작" .- FE
+    INFRA -. " " .- BE
+    INFRA -. " " .- DB
+          </div>
+        </article>
+
+        <article class="diagram-card" id="d3">
+          <header class="diagram-head">
+            <span class="diagram-index">2.2</span>
+            <h3>프론트엔드만 개발</h3>
+          </header>
+          <p class="diagram-blurb">
+            HTML·CSS·JS 파일만 있으면 동작하는 가장 단순한 구조. 회사 소개 페이지,
+            계산기, 틱택토 같은 단순 도구가 여기에 들어갑니다.
+          </p>
+          <div class="mermaid">
+flowchart LR
+    USER["사용자<br/>(브라우저)"] -- "1 - 주소 접속" --> WEB["Web Server<br/>(프론트엔드 소스코드<br/>HTML / CSS / JS)"]
+    WEB -- "2 - 파일 전송" --> USER
+          </div>
+        </article>
+
+        <article class="diagram-card" id="d4">
+          <header class="diagram-head">
+            <span class="diagram-index">2.3</span>
+            <h3>모놀리식 (DB는 따로)</h3>
+          </header>
+          <p class="diagram-blurb">
+            Django 같은 풀스택 프레임워크. 한 프로젝트에 화면과 처리 로직이 같이 들어 있고,
+            DB는 따로 두는 구조입니다. 페이지 요청이 오면 백엔드가 DB를 조회해 완성된 HTML을 만들어 보냅니다.
+          </p>
+          <div class="mermaid">
+flowchart LR
+    USER["사용자"] -- "1 - 페이지 요청" --> SERVER["Django 서버<br/>(Web Server + App Server 한 몸)"]
+    SERVER -- "2 - 데이터 조회" --> DB[("DB Server<br/>(데이터)")]
+    DB -- "3 - 결과" --> SERVER
+    SERVER -- "4 - 완성된 HTML" --> USER
+          </div>
+        </article>
+
+        <article class="diagram-card" id="d5">
+          <header class="diagram-head">
+            <span class="diagram-index">2.4</span>
+            <h3>모놀리식 (한 몸)</h3>
+          </header>
+          <p class="diagram-blurb">
+            Web/App/DB가 한 몸인 구조. 1인 개발이나 작은 팀, 일 이용자 1만명 정도까지의 중규모
+            서비스에 잘 어울립니다. 유지보수가 가장 편한 패턴이기도 합니다.
+          </p>
+          <div class="mermaid">
+flowchart LR
+    USER["사용자<br/>(브라우저)"] -- "1 - 페이지 요청" --> SERVER["Django 서버<br/>(Web Server +<br/>App Server +<br/>DB Server 한 몸)"]
+    SERVER -- "2 - 완성된 HTML" --> USER
+          </div>
+        </article>
+
+        <article class="diagram-card" id="d6">
+          <header class="diagram-head">
+            <span class="diagram-index">2.5</span>
+            <h3>마이크로서비스 — 프론트/백 분리</h3>
+          </header>
+          <p class="diagram-blurb">
+            화면 따로, 처리 로직 따로 만드는 구조. ‘프론트엔드 팀’과 ‘백엔드 팀’이 나뉜 큰 조직에서
+            흔히 선택합니다. 두 프로젝트는 API라는 약속된 형식으로만 데이터를 주고받습니다.
+          </p>
+          <div class="mermaid">
+flowchart LR
+    USER["사용자<br/>(브라우저)"] -- "1 - 화면 요청" --> FE["Web Server<br/>(프론트엔드 소스코드)"]
+    FE -- "2 - 프론트엔드 코드 전송" --> USER
+    USER -- "3 - API 호출<br/>(브라우저에서 실행되는<br/>프론트엔드 코드가)" --> BE["App Server<br/>(백엔드 소스코드)"]
+    BE -- "4 - 데이터 조회" --> DB[("DB Server<br/>(데이터)")]
+    DB -- "5 - 결과" --> BE
+    BE -- "6 - JSON 응답<br/>(화면 일부만 갱신)" --> USER
+          </div>
+        </article>
+
+        <article class="diagram-card" id="d7">
+          <header class="diagram-head">
+            <span class="diagram-index">2.6</span>
+            <h3>프론트엔드 + 외부 API</h3>
+          </header>
+          <p class="diagram-blurb">
+            백엔드 자리를 다른 회사 API로 대체. 지도 API, ChatGPT API, 공공데이터 포털, 날씨 위젯처럼
+            외부 데이터·기능을 빌려 쓰는 화면에 잘 맞습니다.
+          </p>
+          <div class="mermaid">
+flowchart LR
+    USER["사용자<br/>(브라우저)"] -- "1 - 화면 요청" --> FE["Web Server<br/>(프론트엔드 소스코드)"]
+    FE -- "2 - 프론트엔드 코드 전송" --> USER
+    USER -- "3 - 외부 API 호출<br/>(브라우저에서 실행되는<br/>프론트엔드 코드가)" --> EXT["외부 App Server<br/>(OpenAI / 지도 / 공공데이터 등)"]
+    EXT -- "4 - 응답<br/>(화면 갱신)" --> USER
+          </div>
+        </article>
+
+        <article class="diagram-card" id="d8">
+          <header class="diagram-head">
+            <span class="diagram-index">2.7</span>
+            <h3>BaaS — 백엔드를 통째로 빌리기</h3>
+          </header>
+          <p class="diagram-blurb">
+            회원가입·로그인·DB·파일 저장소를 한 묶음으로 빌려주는 서비스(Firebase, Supabase 등).
+            백엔드 코드를 거의 짜지 않고도 회원제 서비스를 1~2주 안에 띄울 수 있습니다.
+          </p>
+          <div class="mermaid">
+flowchart LR
+    USER["사용자<br/>(브라우저)"] -- "1 - 화면 요청" --> FE["Web Server<br/>(프론트엔드 소스코드)"]
+    FE -- "2 - 프론트엔드 코드 전송" --> USER
+    USER -- "3 - 회원/데이터 요청<br/>(브라우저에서 실행되는<br/>프론트엔드 코드가)" --> BAAS["BaaS<br/>(App Server + DB Server 한 묶음)"]
+    BAAS -- "4 - 결과<br/>(화면 갱신)" --> USER
+          </div>
+        </article>
+      </section>
+
+      <section class="chapter">
+        <h2 class="chapter-title">3. 구성요소 들여다보기</h2>
+
+        <article class="diagram-card" id="d9">
+          <header class="diagram-head">
+            <span class="diagram-index">3.1</span>
+            <h3>요청과 응답</h3>
+          </header>
+          <p class="diagram-blurb">
+            브라우저가 서버에 보내는 행동을 ‘요청(Request)’, 서버가 돌려주는 묶음을 ‘응답(Response)’이라 부릅니다.
+            브라우저는 받아온 HTML/CSS/JS를 해석해 화면을 그립니다.
+          </p>
+          <div class="mermaid">
+flowchart LR
+    subgraph SERVER["서버 (Server)"]
+        BE["백엔드 언어<br/>(Python, Java,<br/>Node.js, PHP 등)"]
+        DB[("데이터베이스")]
+        BE <--> DB
+    end
+
+    subgraph BROWSER["브라우저 (Browser)"]
+        HTML["③ 전송 받은 HTML"]
+        CSS["③ 전송 받은 CSS"]
+        JS["③ 전송 받은 JavaScript"]
+        PAGE["④ 완성된 화면"]
+        HTML --> PAGE
+        CSS --> PAGE
+        JS --> PAGE
+    end
+
+    BROWSER -->|"① 요청 (Request)"| SERVER
+    SERVER -->|"② 응답: HTML, CSS, JS 전달"| BROWSER
+          </div>
+        </article>
+
+        <article class="diagram-card" id="d10">
+          <header class="diagram-head">
+            <span class="diagram-index">3.2</span>
+            <h3>HTML / CSS / JavaScript의 역할</h3>
+          </header>
+          <p class="diagram-blurb">
+            HTML은 뼈대, CSS는 꾸밈, JavaScript는 움직임. 이 셋이 합쳐져 우리가 보는 한 장의 화면이 만들어집니다.
+          </p>
+          <div class="mermaid">
+flowchart LR
+    HTML["HTML<br/>(뼈대/내용)"] --> PAGE["완성된 화면"]
+    CSS["CSS<br/>(꾸밈/배치)"] --> PAGE
+    JS["JavaScript<br/>(움직임/반응)"] --> PAGE
+          </div>
+        </article>
+
+        <article class="diagram-card" id="d11">
+          <header class="diagram-head">
+            <span class="diagram-index">3.3</span>
+            <h3>도메인과 DNS</h3>
+          </header>
+          <p class="diagram-blurb">
+            사람이 외운 <code>google.com</code>을 IP 주소로 바꿔주는 게 DNS. 우리는 이름으로 접속하지만
+            실제로는 그 이름이 가리키는 숫자 주소로 컴퓨터를 찾아갑니다.
+          </p>
+          <div class="mermaid">
+flowchart LR
+    USER["사용자가<br/>google.com 입력"] --> DNS["전화번호부<br/>(DNS)"]
+    DNS -- "google.com은<br/>142.250.196.110 입니다" --> USER
+    USER -- "142.250.196.110으로 접속" --> SERVER["구글 서버"]
+          </div>
+        </article>
+
+        <article class="diagram-card" id="d12">
+          <header class="diagram-head">
+            <span class="diagram-index">3.4</span>
+            <h3>FastAPI 서버 흐름</h3>
+          </header>
+          <p class="diagram-blurb">
+            주소(<code>/</code>)와 (<code>/about</code>)에 따라 다른 HTML이 돌아오는 모습.
+            백엔드는 사용자의 요청 주소에 맞춰 응답을 만들어 보내는 일을 합니다.
+          </p>
+          <div class="mermaid">
+sequenceDiagram
+    participant BROWSER as 브라우저
+    participant SERVER as FastAPI 서버<br/>(002.py)
+    BROWSER->>SERVER: 1. GET /
+    SERVER->>BROWSER: 2. HTML 응답
+    BROWSER->>SERVER: 3. GET /about
+    SERVER->>BROWSER: 4. 다른 HTML 응답
+          </div>
+        </article>
+
+        <article class="diagram-card" id="d13">
+          <header class="diagram-head">
+            <span class="diagram-index">3.5</span>
+            <h3>데이터베이스가 필요한 이유</h3>
+          </header>
+          <p class="diagram-blurb">
+            서버를 껐다 켜도 데이터가 남아 있어야 한다면 DB가 필요합니다.
+            어제 작성한 글을 오늘 다시 읽을 수 있는 이유가 여기 있습니다.
+          </p>
+          <div class="mermaid">
+sequenceDiagram
+    participant USER as 사용자
+    participant BE as 백엔드<br/>(Python)
+    participant DB as 데이터베이스
+    participant USER2 as 다른 사용자<br/>(다음 날 접속)
+    USER->>BE: 1. 글 작성 요청
+    BE->>DB: 2. 저장
+    DB->>BE: 3. 저장 완료
+    BE->>USER: 4. 응답
+    USER2->>BE: 5. 글 목록 요청
+    BE->>DB: 6. 조회
+    DB->>BE: 7. 어제 작성된 글
+    BE->>USER2: 8. 응답
+          </div>
+        </article>
+      </section>
+
+      <footer class="viewer-foot">
+        <p>
+          더 자세한 설명은 책 본문에서 확인하세요.
+          <a href="https://www.books.weniv.co.kr/" target="_blank" rel="noopener">위니북스 →</a>
+        </p>
+      </footer>
+    </article>
+  </main>
+
+  <footer class="bottombar">
+    <span>도식만 모아 보는 페이지입니다. 본문은 책에서 확인하세요.</span>
+    <span>책: <em>딱 필요한 만큼 — 바이브 코딩을 위한 웹 서비스 구조</em></span>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+  <script src="./script.js"></script>
+</body>
+</html>

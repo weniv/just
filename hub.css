@@ -95,8 +95,9 @@
   font-size: clamp(36px, 4.5vw, 52px);
   color: var(--card-accent, var(--accent));
   letter-spacing: -0.04em;
-  line-height: 1;
+  line-height: 1.05;
   padding: 0 12px;
+  text-align: center;
 }
 
 .card-status {

@@ -11,6 +11,18 @@
 
 window.JUST_BOOKS = [
   {
+    slug: "web-structure",
+    title: "웹 구조 도식",
+    tagline: "AI에게 ‘이 구조로 만들어줘’라고 말하기",
+    description:
+      "프론트·백·DB·외부 API·인프라가 어떻게 묶이는지 13장의 머메이드 도식으로 한눈에. 본문 없이 그림만 모아 빠르게 훑어볼 수 있습니다.",
+    practiceUrl: "./web-structure/",
+    bookUrl: "https://www.books.weniv.co.kr/just-web-structure",
+    icon: "WEB STRUCTURE",
+    accent: "#2e6ff2",
+    status: "released",
+  },
+  {
     slug: "markdown",
     title: "마크다운",
     tagline: "AI와의 공용어, 30분이면 충분합니다",

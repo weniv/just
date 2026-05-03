@@ -1,0 +1,241 @@
+/* ============================================================
+   웹 구조 도식 페이지 — 읽기 전용 뷰어
+   ------------------------------------------------------------
+   공통 스타일은 ../style.css 에서 옵니다.
+============================================================ */
+
+body {
+  background: var(--bg-soft);
+}
+
+/* ---------- Layout ---------- */
+.viewer {
+  flex: 1;
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 36px 24px 64px;
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 40px;
+  align-items: start;
+}
+
+/* ---------- TOC ---------- */
+.toc {
+  position: sticky;
+  top: 88px;
+  align-self: start;
+  background: var(--bg-elev);
+  border: 1px solid var(--border-soft);
+  border-radius: 14px;
+  padding: 18px 18px 14px;
+  font-size: 13px;
+  line-height: 1.5;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+}
+.toc-head {
+  margin: 0 0 10px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--text-mute);
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.toc-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.toc-list li.toc-section {
+  margin-top: 12px;
+  font-size: 11px;
+  color: var(--text-mute);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.toc-list a {
+  display: block;
+  padding: 5px 8px;
+  border-radius: 6px;
+  color: var(--text-soft);
+  text-decoration: none;
+  transition: background 0.12s, color 0.12s;
+}
+.toc-list a:hover {
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+}
+.toc-list a.active {
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  font-weight: 600;
+}
+
+/* ---------- Hero ---------- */
+.viewer-hero {
+  margin-bottom: 36px;
+}
+.hero-eyebrow {
+  margin: 0 0 8px;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--accent-strong);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.viewer-hero h1 {
+  font-size: clamp(26px, 3.6vw, 36px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+  line-height: 1.25;
+}
+.hero-lead {
+  margin: 0;
+  color: var(--text-soft);
+  line-height: 1.75;
+  max-width: 64ch;
+}
+
+/* ---------- Chapter ---------- */
+.chapter {
+  margin-top: 12px;
+}
+.chapter-title {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 36px 0 18px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border-soft);
+  color: var(--text);
+}
+
+/* ---------- Diagram card ---------- */
+.diagram-card {
+  background: var(--bg-elev);
+  border: 1px solid var(--border-soft);
+  border-radius: 14px;
+  padding: 22px 24px 24px;
+  margin: 0 0 22px;
+  box-shadow: var(--shadow-sm);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.diagram-card:hover {
+  border-color: var(--border);
+  box-shadow: var(--shadow-md);
+}
+.diagram-head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+.diagram-index {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+}
+.diagram-head h3 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  line-height: 1.4;
+}
+.diagram-blurb {
+  margin: 0 0 18px;
+  color: var(--text-soft);
+  line-height: 1.7;
+  font-size: 14px;
+}
+.diagram-blurb code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.9em;
+  background: var(--code-bg);
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+  color: var(--text);
+}
+
+/* ---------- Mermaid container ---------- */
+.mermaid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  border: 1px solid var(--border-soft);
+  border-radius: 10px;
+  padding: 24px 16px;
+  overflow-x: auto;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  color: var(--text-mute);
+  line-height: 1.5;
+  white-space: pre;
+  min-height: 80px;
+}
+/* While Mermaid is rendering, hide the raw text */
+.mermaid:not([data-processed="true"]) {
+  color: transparent;
+  user-select: none;
+}
+.mermaid svg {
+  max-width: 100%;
+  height: auto;
+}
+.mermaid-error {
+  color: var(--danger);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  white-space: pre-wrap;
+  text-align: left;
+  padding: 12px;
+}
+
+/* ---------- Foot ---------- */
+.viewer-foot {
+  margin: 48px 0 0;
+  padding: 22px 0 0;
+  border-top: 1px solid var(--border-soft);
+  text-align: center;
+  color: var(--text-mute);
+  font-size: 13px;
+}
+.viewer-foot a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 4px;
+}
+.viewer-foot a:hover { text-decoration: underline; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 880px) {
+  .viewer {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 24px 16px 56px;
+  }
+  .toc {
+    position: static;
+    max-height: none;
+    order: 2;
+  }
+  .diagrams {
+    order: 1;
+  }
+  .chapter-title { margin-top: 28px; }
+  .diagram-card { padding: 20px 18px 22px; }
+  .diagram-head h3 { font-size: 16px; }
+}
