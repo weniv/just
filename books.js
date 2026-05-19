@@ -23,6 +23,18 @@ window.JUST_BOOKS = [
     status: "released",
   },
   {
+    slug: "git-flow",
+    title: "깃허브",
+    tagline: "clone·add·commit·push·pull 한 화면에",
+    description:
+      "다섯 명령어가 어떤 영역 사이를 오가는지 버튼으로 직접 눌러보며 익히는 시뮬레이터. 파일 카드가 작업 폴더 → 스테이지 → 버전 → 깃허브로 실제로 이동합니다.",
+    practiceUrl: "./git-flow/",
+    bookUrl: "https://www.books.weniv.co.kr/just-github",
+    icon: "GitHub",
+    accent: "#328026",
+    status: "released",
+  },
+  {
     slug: "markdown",
     title: "마크다운",
     tagline: "AI와의 공용어, 30분이면 충분합니다",

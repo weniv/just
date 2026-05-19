@@ -1,0 +1,511 @@
+/* ============================================================
+   깃 흐름 실습장 — 동적 시뮬레이터
+   ------------------------------------------------------------
+   공통 스타일은 ../style.css 에서 옵니다.
+============================================================ */
+
+body {
+  background: var(--bg-soft);
+}
+
+/* ---------- Layout ---------- */
+.flow-main {
+  flex: 1;
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 36px 24px 64px;
+}
+
+/* ---------- Hero ---------- */
+.flow-hero {
+  margin-bottom: 36px;
+}
+.hero-eyebrow {
+  margin: 0 0 8px;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--accent-strong);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.flow-hero h1 {
+  font-size: clamp(26px, 3.6vw, 36px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+  line-height: 1.25;
+}
+.hero-lead {
+  margin: 0;
+  color: var(--text-soft);
+  line-height: 1.75;
+  max-width: 64ch;
+}
+.hero-lead code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.92em;
+  background: var(--code-bg);
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
+  color: var(--accent-strong);
+  font-weight: 600;
+}
+
+/* ---------- Section ---------- */
+.flow-section {
+  margin-top: 28px;
+  background: var(--bg-elev);
+  border: 1px solid var(--border-soft);
+  border-radius: 14px;
+  padding: 24px 24px 28px;
+  box-shadow: var(--shadow-sm);
+}
+.section-head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+.section-index {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+}
+.section-head h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+.section-blurb {
+  margin: 0 0 20px;
+  color: var(--text-soft);
+  line-height: 1.7;
+  font-size: 14px;
+}
+.section-blurb code,
+.section-blurb b {
+  font-family: inherit;
+  font-weight: 700;
+  color: var(--text);
+}
+
+/* ---------- Mermaid ---------- */
+.mermaid {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg);
+  border: 1px solid var(--border-soft);
+  border-radius: 10px;
+  padding: 24px 16px;
+  overflow-x: auto;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  color: var(--text-mute);
+  line-height: 1.5;
+  white-space: pre;
+  min-height: 80px;
+}
+.mermaid:not([data-processed="true"]) {
+  color: transparent;
+  user-select: none;
+}
+.mermaid svg {
+  max-width: 100%;
+  height: auto;
+}
+
+/* ============================================================
+   시뮬레이터
+============================================================ */
+
+.sim-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ---------- Stage ---------- */
+.sim-stage {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 20px;
+  background: var(--bg);
+  border: 1px solid var(--border-soft);
+  border-radius: 12px;
+}
+.zone-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+.local-row {
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+/* ---------- Zone ---------- */
+.zone {
+  position: relative;
+  background: var(--bg-elev);
+  border: 1.5px dashed var(--border);
+  border-radius: 12px;
+  padding: 14px 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-height: 170px;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.zone.is-flashing {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-soft);
+}
+.zone header {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.zone-tag {
+  font-size: 10.5px;
+  letter-spacing: 0.06em;
+  color: var(--text-mute);
+  font-weight: 700;
+  text-transform: uppercase;
+  background: var(--code-bg);
+  padding: 2px 8px;
+  border-radius: 999px;
+}
+.zone h3 {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+.zone-desc {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--text-mute);
+  line-height: 1.5;
+}
+
+/* 깃허브 영역만 살짝 구분 — 나머지 3개(내 컴퓨터)는 중립 톤 */
+.zone-remote { border-style: solid; }
+
+/* ---------- File cards inside zone ---------- */
+.card-area {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  align-content: flex-start;
+  min-height: 56px;
+  margin-top: 4px;
+}
+
+.file-card {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 7px 10px;
+  border-radius: 8px;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  color: var(--text);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+              opacity 0.3s ease,
+              border-color 0.2s ease,
+              background 0.2s ease;
+  will-change: transform;
+}
+/* 새로 만든 변경분만 살짝 강조 — 나머지는 모두 같은 톤 */
+.file-card.is-new {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+.file-card.is-entering { opacity: 0; transform: scale(0.6); }
+.file-card.is-leaving { opacity: 0; transform: scale(0.8); }
+
+.file-icon {
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+  background: currentColor;
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'/><path d='M14 2v6h6'/></svg>") center/contain no-repeat;
+          mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><path d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'/><path d='M14 2v6h6'/></svg>") center/contain no-repeat;
+  opacity: 0.7;
+}
+.file-card.is-committed .file-icon,
+.file-card.is-remote .file-icon {
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='3'/><path d='M3 12h6m6 0h6'/></svg>") center/contain no-repeat;
+          mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><circle cx='12' cy='12' r='3'/><path d='M3 12h6m6 0h6'/></svg>") center/contain no-repeat;
+}
+
+.empty-hint {
+  font-size: 11.5px;
+  color: var(--text-mute);
+  font-style: italic;
+  padding: 4px 2px;
+}
+
+/* ---------- Status bar ---------- */
+.sim-status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: var(--bg-elev);
+  border: 1px solid var(--border-soft);
+  border-radius: 10px;
+  font-size: 13.5px;
+  min-height: 50px;
+}
+.status-step {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--accent-strong);
+  background: var(--accent-soft);
+  padding: 4px 9px;
+  border-radius: 999px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+.status-step.is-error {
+  color: var(--danger);
+  background: color-mix(in srgb, var(--danger) 18%, transparent);
+}
+.status-step.is-success {
+  color: var(--success);
+  background: color-mix(in srgb, var(--success) 18%, transparent);
+}
+.status-text {
+  color: var(--text-soft);
+  line-height: 1.55;
+}
+.status-text b {
+  color: var(--text);
+  font-weight: 700;
+}
+
+/* ---------- Command bar ---------- */
+.cmd-bar {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+}
+.cmd-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--bg-elev);
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
+  transition: transform 0.12s ease, border-color 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+.cmd-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--accent);
+}
+.cmd-btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+.cmd-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+.cmd-num {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-soft);
+  background: var(--bg-soft);
+  border-radius: 999px;
+  letter-spacing: 0;
+}
+.cmd-btn:hover:not(:disabled) .cmd-num {
+  color: #fff;
+  background: var(--accent);
+}
+.cmd-body {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.cmd-name {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+.cmd-hint {
+  font-size: 11px;
+  color: var(--text-mute);
+  letter-spacing: 0.01em;
+}
+
+/* 보조 버튼: git 명령이 아니고 사용자의 "파일 수정" 행동을 흉내내는 슬롯 */
+.cmd-btn-aux {
+  border-style: dashed;
+  border-color: var(--border);
+  background: transparent;
+}
+.cmd-btn-aux:hover:not(:disabled) {
+  border-color: var(--text-mute);
+  border-style: dashed;
+  background: var(--bg-soft);
+}
+.cmd-num-aux {
+  background: transparent;
+  color: var(--text-mute);
+  border: 1px dashed var(--border);
+  font-size: 16px;
+  line-height: 1;
+}
+.cmd-btn-aux:hover:not(:disabled) .cmd-num-aux {
+  color: var(--text);
+  background: transparent;
+  border-color: var(--text-mute);
+}
+.cmd-name-aux {
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-soft);
+}
+
+/* ---------- Toolbar ---------- */
+.sim-toolbar {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+.reset-btn {
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-soft);
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.reset-btn:hover {
+  background: var(--code-bg);
+  color: var(--text);
+  border-color: var(--text-mute);
+}
+
+/* ---------- Summary list ---------- */
+.cmd-summary {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.cmd-summary li {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  font-size: 14px;
+  color: var(--text-soft);
+  line-height: 1.7;
+}
+.cmd-summary li b {
+  color: var(--text);
+  font-weight: 700;
+}
+.cmd-pill-num {
+  flex-shrink: 0;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-soft);
+  background: var(--bg-soft);
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  letter-spacing: 0;
+}
+.cmd-pill {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 3px 10px;
+  border-radius: 6px;
+  color: var(--text);
+  background: var(--code-bg);
+  border: 1px solid var(--border-soft);
+  letter-spacing: 0.02em;
+  flex-shrink: 0;
+  min-width: 56px;
+  text-align: center;
+}
+
+/* ---------- Foot ---------- */
+.flow-foot {
+  margin: 48px 0 0;
+  padding: 22px 0 0;
+  border-top: 1px solid var(--border-soft);
+  text-align: center;
+  color: var(--text-mute);
+  font-size: 13px;
+}
+.flow-foot a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+  margin-left: 4px;
+}
+.flow-foot a:hover { text-decoration: underline; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1024px) {
+  .cmd-bar { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (max-width: 880px) {
+  .flow-main { padding: 24px 16px 56px; }
+  .flow-section { padding: 20px 18px 22px; }
+  .local-row { grid-template-columns: 1fr; }
+  .cmd-bar { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 520px) {
+  .cmd-bar { grid-template-columns: 1fr; }
+  .sim-toolbar { justify-content: stretch; }
+  .reset-btn { flex: 1; }
+}

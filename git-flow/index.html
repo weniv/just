@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>깃허브 — 딱 필요한 만큼</title>
+  <meta name="description" content="clone · add · commit · push · pull. 다섯 명령어가 어떤 영역 사이를 오가는지 버튼으로 직접 눌러보며 익힙니다." />
+
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <a class="brand-logo-link" href="https://www.weniv.co.kr/" target="_blank" rel="noopener" aria-label="위니브 홈으로 이동">
+        <img src="../logo.svg" alt="weniv" class="brand-logo" />
+      </a>
+      <span class="divider" aria-hidden="true"></span>
+      <a class="brand-title-link" href="../" aria-label="딱 필요한 만큼 허브로 이동">
+        <span class="title">깃허브</span>
+        <span class="home-link">← 다른 실습장</span>
+      </a>
+    </div>
+
+    <div class="actions">
+      <label class="theme-toggle">
+        <input type="checkbox" id="themeToggle" />
+        <span>다크</span>
+      </label>
+    </div>
+  </header>
+
+  <main class="flow-main">
+    <header class="flow-hero">
+      <p class="hero-eyebrow">딱 필요한 만큼 — 바이브 코딩을 위한 깃허브</p>
+      <h1>다섯 명령어가 흐르는 방향을 따라가 보기</h1>
+      <p class="hero-lead">
+        <code>clone</code>·<code>add</code>·<code>commit</code>·<code>push</code>·<code>pull</code>.
+        외울 필요는 없습니다. 어떤 영역 사이를 오가는지 한 번 눈에 새기는 게 목적입니다.
+      </p>
+    </header>
+
+    <!-- ───────── 1) 머메이드 전체 지도 ───────── -->
+    <section class="flow-section">
+      <header class="section-head">
+        <span class="section-index">1</span>
+        <h2>전체 지도</h2>
+      </header>
+      <p class="section-blurb">
+        책 본문에서 한 번 등장하는 그림입니다. 화살표의 방향이 곧 명령어가 데이터를 옮기는 방향입니다.
+      </p>
+      <div class="mermaid">
+flowchart LR
+    subgraph local["내 컴퓨터"]
+        B["작업 폴더"]
+        C["올릴 파일 모음"]
+        D["버전 (시간여행 포인트)"]
+    end
+    subgraph github["깃허브"]
+        A["레파지토리"]
+    end
+    A -->|"clone (처음 한 번)"| B
+    A -->|"pull"| B
+    B -->|"add"| C
+    C -->|"commit"| D
+    D -->|"push"| A
+      </div>
+    </section>
+
+    <!-- ───────── 2) 동적 시뮬레이터 ───────── -->
+    <section class="flow-section">
+      <header class="section-head">
+        <span class="section-index">2</span>
+        <h2>버튼으로 직접 흘려보기</h2>
+      </header>
+      <p class="section-blurb">
+        <b>1번부터 차례대로</b> 눌러보세요. 파일 카드가 영역 사이를 실제로 이동합니다.
+        상태가 맞지 않으면 버튼이 비활성화되며, 그 이유는 바로 아래 줄에서 알려줍니다.
+      </p>
+
+      <div class="sim-wrap">
+        <!-- 4영역 캔버스 -->
+        <div class="sim-stage" aria-label="깃 영역 시뮬레이션">
+          <div class="zone-row">
+            <div class="zone zone-remote" data-zone="remote">
+              <header>
+                <span class="zone-tag">깃허브</span>
+                <h3>레파지토리</h3>
+              </header>
+              <p class="zone-desc">인터넷 어딘가 — 다른 사람과 공유되는 곳</p>
+              <div class="card-area" data-area="remote"></div>
+            </div>
+          </div>
+
+          <div class="zone-row local-row">
+            <div class="zone zone-work" data-zone="work">
+              <header>
+                <span class="zone-tag">내 컴퓨터</span>
+                <h3>작업 폴더</h3>
+              </header>
+              <p class="zone-desc">실제로 코드를 고치는 곳</p>
+              <div class="card-area" data-area="work"></div>
+            </div>
+
+            <div class="zone zone-stage" data-zone="stage">
+              <header>
+                <span class="zone-tag">내 컴퓨터</span>
+                <h3>올릴 파일 모음</h3>
+              </header>
+              <p class="zone-desc">이번 버전에 포함시킬 파일을 모아둔 자리</p>
+              <div class="card-area" data-area="stage"></div>
+            </div>
+
+            <div class="zone zone-commit" data-zone="commit">
+              <header>
+                <span class="zone-tag">내 컴퓨터</span>
+                <h3>버전</h3>
+              </header>
+              <p class="zone-desc">묶어서 만든 시간여행 포인트</p>
+              <div class="card-area" data-area="commit"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 상태 메시지 -->
+        <div class="sim-status" id="simStatus" role="status" aria-live="polite">
+          <span class="status-step" id="statusStep">대기 중</span>
+          <span class="status-text" id="statusText">먼저 <b>clone</b>을 눌러 레파지토리를 내 컴퓨터로 가져오세요.</span>
+        </div>
+
+        <!-- 5개 명령어 버튼 (번호 순서대로 클릭) -->
+        <div class="cmd-bar" role="toolbar" aria-label="깃 명령어">
+          <button type="button" class="cmd-btn" data-cmd="clone">
+            <span class="cmd-num">1</span>
+            <span class="cmd-body">
+              <span class="cmd-name">clone</span>
+              <span class="cmd-hint">깃허브 → 내 컴퓨터</span>
+            </span>
+          </button>
+          <button type="button" class="cmd-btn cmd-btn-aux" id="editBtn" title="작업 폴더에서 파일을 만들거나 고친 상황을 만듭니다">
+            <span class="cmd-num cmd-num-aux">+</span>
+            <span class="cmd-body">
+              <span class="cmd-name cmd-name-aux">파일 수정</span>
+              <span class="cmd-hint">작업 폴더에서 변경 만들기</span>
+            </span>
+          </button>
+          <button type="button" class="cmd-btn" data-cmd="add">
+            <span class="cmd-num">2</span>
+            <span class="cmd-body">
+              <span class="cmd-name">add</span>
+              <span class="cmd-hint">작업 폴더 → 올릴 파일</span>
+            </span>
+          </button>
+          <button type="button" class="cmd-btn" data-cmd="commit">
+            <span class="cmd-num">3</span>
+            <span class="cmd-body">
+              <span class="cmd-name">commit</span>
+              <span class="cmd-hint">올릴 파일 → 버전</span>
+            </span>
+          </button>
+          <button type="button" class="cmd-btn" data-cmd="push">
+            <span class="cmd-num">4</span>
+            <span class="cmd-body">
+              <span class="cmd-name">push</span>
+              <span class="cmd-hint">버전 → 깃허브</span>
+            </span>
+          </button>
+          <button type="button" class="cmd-btn" data-cmd="pull">
+            <span class="cmd-num">5</span>
+            <span class="cmd-body">
+              <span class="cmd-name">pull</span>
+              <span class="cmd-hint">깃허브 → 내 컴퓨터</span>
+            </span>
+          </button>
+        </div>
+
+        <div class="sim-toolbar">
+          <button type="button" class="reset-btn" id="resetBtn" title="처음 상태로 되돌립니다">
+            ↺ 처음부터
+          </button>
+          <button type="button" class="reset-btn" id="remoteEditBtn" title="다른 사람이 깃허브에 새 커밋을 올린 상황을 만듭니다">
+            다른 사람이 깃허브에 새 파일을 올림
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────── 3) 한 줄 요약 ───────── -->
+    <section class="flow-section">
+      <header class="section-head">
+        <span class="section-index">3</span>
+        <h2>다섯 명령어 한 줄 요약</h2>
+      </header>
+      <ul class="cmd-summary">
+        <li>
+          <span class="cmd-pill-num">1</span>
+          <span class="cmd-pill">clone</span>
+          <span>깃허브에 있는 레파지토리를 내 컴퓨터로 통째로 복사. <b>처음 한 번</b>만 합니다.</span>
+        </li>
+        <li>
+          <span class="cmd-pill-num">2</span>
+          <span class="cmd-pill">add</span>
+          <span>수정·생성·삭제한 파일 중 이번 버전에 포함시킬 것을 골라 모읍니다.</span>
+        </li>
+        <li>
+          <span class="cmd-pill-num">3</span>
+          <span class="cmd-pill">commit</span>
+          <span>모은 파일을 묶어 버전 하나를 만듭니다. 짧은 메시지가 함께 들어갑니다.</span>
+        </li>
+        <li>
+          <span class="cmd-pill-num">4</span>
+          <span class="cmd-pill">push</span>
+          <span>내 컴퓨터에 만들어 둔 버전을 깃허브에 올립니다. 이걸 해야 남이 볼 수 있습니다.</span>
+        </li>
+        <li>
+          <span class="cmd-pill-num">5</span>
+          <span class="cmd-pill">pull</span>
+          <span>깃허브에 있는 최신 버전을 내 컴퓨터로 가져옵니다. 작업 시작 전 습관처럼.</span>
+        </li>
+      </ul>
+    </section>
+
+    <footer class="flow-foot">
+      <p>
+        더 자세한 설명은 책 본문에서 확인하세요.
+        <a href="https://www.books.weniv.co.kr/" target="_blank" rel="noopener">위니북스 →</a>
+      </p>
+    </footer>
+  </main>
+
+  <footer class="bottombar">
+    <span>버튼을 눌러 흐름을 익히는 페이지입니다. 명령어는 외울 필요 없습니다.</span>
+    <span>책: <em>딱 필요한 만큼 — 바이브 코딩을 위한 깃허브</em></span>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+  <script src="./script.js"></script>
+</body>
+</html>
