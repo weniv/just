@@ -154,6 +154,18 @@ window.JUST_BOOKS = [
     accent: "#964dd1",
     status: "practice-only",
   },
+  {
+    slug: "vuln",
+    title: "취약점 시연",
+    tagline: "SQL·XSS·CSRF·IDOR을 클릭으로 보고, 점검 프롬프트까지",
+    description:
+      "AI가 짜준 코드에 가장 흔한 취약점 4종을 안전한 모의 환경에서 클릭만으로 시연합니다. 마지막에 AI에게 그대로 넘기는 종합 점검 프롬프트를 복사해 갑니다.",
+    practiceUrl: "./vuln/",
+    bookUrl: "https://www.books.weniv.co.kr/just-security",
+    icon: "VULN",
+    accent: "#ff3440",
+    status: "practice-only",
+  },
 ];
 
 window.JUST_STATUS_LABEL = {
