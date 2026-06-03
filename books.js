@@ -11,6 +11,18 @@
 
 window.JUST_BOOKS = [
   {
+    slug: "html-inspect",
+    title: "HTML 뜯어보기",
+    tagline: "AI가 만든 화면을 개발자 도구처럼 마우스로",
+    description:
+      "화면에 마우스를 올리면 그걸 그린 HTML 태그가 트리에서 같이 빛납니다. 글자를 더블클릭해 고쳐 보고, 파일 둘을 골라 상대·절대경로를 직접 계산합니다.",
+    practiceUrl: "./html-inspect/",
+    bookUrl: "https://www.books.weniv.co.kr/just-html",
+    icon: "HTML",
+    accent: "#2e6ff2",
+    status: "released",
+  },
+  {
     slug: "web-structure",
     title: "웹 구조 도식",
     tagline: "AI에게 ‘이 구조로 만들어줘’라고 말하기",
