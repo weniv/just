@@ -17,7 +17,7 @@ window.JUST_BOOKS = [
     description:
       "화면에 마우스를 올리면 그걸 그린 HTML 태그가 트리에서 같이 빛납니다. 글자를 더블클릭해 고쳐 보고, 파일 둘을 골라 상대·절대경로를 직접 계산합니다.",
     practiceUrl: "./html-inspect/",
-    bookUrl: "https://www.books.weniv.co.kr/just-html",
+    bookUrl: "https://weniversity.co.kr/book/just-html/",
     icon: "HTML",
     accent: "#2e6ff2",
     status: "released",
@@ -29,7 +29,7 @@ window.JUST_BOOKS = [
     description:
       "프론트·백·DB·외부 API·인프라가 어떻게 묶이는지 13장의 머메이드 도식으로 한눈에. 본문 없이 그림만 모아 빠르게 훑어볼 수 있습니다.",
     practiceUrl: "./web-structure/",
-    bookUrl: "https://www.books.weniv.co.kr/just-web-structure",
+    bookUrl: "https://weniversity.co.kr/book/just-web-structure/",
     icon: "WEB STRUCTURE",
     accent: "#2e6ff2",
     status: "released",
@@ -41,7 +41,7 @@ window.JUST_BOOKS = [
     description:
       "다섯 명령어가 어떤 영역 사이를 오가는지 버튼으로 직접 눌러보며 익히는 시뮬레이터. 파일 카드가 작업 폴더 → 스테이지 → 버전 → 깃허브로 실제로 이동합니다.",
     practiceUrl: "./git-flow/",
-    bookUrl: "https://www.books.weniv.co.kr/just-github",
+    bookUrl: "https://weniversity.co.kr/book/just-github/",
     icon: "GitHub",
     accent: "#328026",
     status: "released",
@@ -53,7 +53,7 @@ window.JUST_BOOKS = [
     description:
       "헤딩·목록·표·코드블록·체크리스트·프론트매터. 좌측에 입력하면 우측에 결과가 즉시 렌더링됩니다.",
     practiceUrl: "./markdown/",
-    bookUrl: "https://www.books.weniv.co.kr/just-markdown",
+    bookUrl: "https://weniversity.co.kr/book/just-markdown/",
     icon: "MD",
     accent: "#2e6ff2",
     status: "released",
@@ -173,7 +173,7 @@ window.JUST_BOOKS = [
     description:
       "AI가 짜준 코드에 가장 흔한 취약점 4종을 안전한 모의 환경에서 클릭만으로 시연합니다. 마지막에 AI에게 그대로 넘기는 종합 점검 프롬프트를 복사해 갑니다.",
     practiceUrl: "./vuln/",
-    bookUrl: "https://www.books.weniv.co.kr/just-security",
+    bookUrl: "https://weniversity.co.kr/book/just-security/",
     icon: "VULN",
     accent: "#ff3440",
     status: "practice-only",
